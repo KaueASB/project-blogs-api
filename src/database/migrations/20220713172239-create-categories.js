@@ -9,10 +9,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
-    }, {timestamps: false});
+    });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Categories');
