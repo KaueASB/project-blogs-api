@@ -7,7 +7,7 @@ const messagesError = {
 
 const ErroHandler = (err, _req, res, _next) => {
   const status = err[messagesError];
-  res.status(status).json({ message });
+  res.status(status).json({ message: 'alo' });
 };
 
 module.exports = ErroHandler;
