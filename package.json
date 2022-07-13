@@ -12,7 +12,7 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
-    "mysql2": "2.1.0",
+    "mysql2": "^2.1.0",
     "sequelize": "6.3.4",
     "shelljs": "0.8.4"
   },
@@ -33,10 +33,11 @@
     "compose": "docker-compose down && docker-compose up -d --build && docker exec -it blogs_api bash "
   },
   "devDependencies": {
+    "@types/sequelize": "^4.28.14",
     "eslint": "6.8.0",
     "eslint-config-airbnb-base": "14.2.0",
-    "eslint-plugin-import": "2.22.1",
     "eslint-config-trybe-backend": "1.0.3",
+    "eslint-plugin-import": "2.22.1",
     "frisby": "2.1.2",
     "jest": "26.0.1",
     "jest-each": "^28.0.1",
