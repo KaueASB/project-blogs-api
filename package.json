@@ -31,7 +31,7 @@
     "test-coverage": "jest -i --verbose --forceExit --coverage",
     "debug": "nodemon .",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
-    "compose": "docker-compose down && docker-compose up -d --build && docker exec -it blogs_api bash "
+    "compose": "docker-compose down && docker-compose up -d --build && docker exec -it blogs_api bash"
   },
   "devDependencies": {
     "@types/sequelize": "^4.28.14",

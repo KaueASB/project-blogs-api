@@ -5,8 +5,8 @@
  * @param {import('sequelize').Sequelize} sequelize 
 */
 
-const User = (sequelize, DataTypes) => {
-  const User = sequelize.define("User", {
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -25,14 +25,17 @@ const User = (sequelize, DataTypes) => {
     image: {
       type: DataTypes.STRING,
     },
-  }, { tableName: 'Users', timestamps: false });
+  },
+  {
+    tableName: 'Users',
+    timestamps: false, 
+  });
 
   User.associate = (models) => {
-    User.hasMany(models.BlogPost,
-      { foreignKey: 'userId', as: 'BlogPosts' });
+    User.hasMany(models.BlogPost, {
+      foreignKey: 'userId', as: 'BlogPosts',
+    });
   };
 
   return User;
 };
-
-module.exports = User;
