@@ -31,12 +31,12 @@ module.exports = (sequelize, DataTypes) => {
     published: {
       allowNull: false,
       type: DataTypes.DATE,
-      // field: 'published'
+      defaultValue: DataTypes.NOW
     },
     updated: {
       allowNull: false,
       type: DataTypes.DATE,
-      // field: 'updated'
+      defaultValue: DataTypes.NOW
     }
   },
     {

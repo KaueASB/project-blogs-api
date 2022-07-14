@@ -26,12 +26,10 @@ module.exports = {
       published: {
         allowNull: false,
         type: Sequelize.DATE,
-        // field: 'published'
       },
       updated: {
         allowNull: false,
         type: Sequelize.DATE,
-        // field: 'updated'
       }
     });
   },

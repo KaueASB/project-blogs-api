@@ -32,7 +32,7 @@
     "debug": "nodemon --watch src .",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
     "compose:dev": "docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up -d",
-    "dev": "npm run drop && npm run prestart && npm run seed"
+    "db:dev": "npm run drop && npm run prestart && npm run seed"
   },
   "devDependencies": {
     "@types/sequelize": "^4.28.14",

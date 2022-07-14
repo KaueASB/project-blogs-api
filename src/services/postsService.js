@@ -25,8 +25,7 @@ const postsService = {
 
   async addPost({ title, content, categoryIds }, id) {
     const categoryExist = await Promise.all(
-      categoryIds.map((catId) => models.Category.findOne({ where: { id: catId }, raw: true,
-      })),
+      categoryIds.map((ctgId) => models.Category.findOne({ where: { id: ctgId }, raw: true })),
     );
     if (!categoryExist.every((item) => item)) throwNotFoundError('"categoryIds" not found');
 
@@ -37,8 +36,8 @@ const postsService = {
         userId: id,
       }, { transaction: t });
 
-      await Promise.all(categoryIds.map((catId) => (
-        models.PostCategory.create({ postId: post.id, categoryId: catId }, { transaction: t })
+      await Promise.all(categoryIds.map((ctgId) => (
+        models.PostCategory.create({ postId: post.id, categoryId: ctgId }, { transaction: t })
       )));
       
       return post;
