@@ -1,7 +1,8 @@
 const errors = {
+  NotFoundError: 400,
   ValidationError: 400,
   UnauthorizedError: 401,
-  NotFoundError: 400,
+  JsonWebTokenError: 401,
   UserConflict: 409,
 };
 
@@ -14,7 +15,10 @@ const errors = {
 
 const erroHandler = ({ name, message }, _req, res, _next) => {
   const status = errors[name];
-  if (!status) return res.sendStatus(500);
+  if (name === 'JsonWebTokenError') {
+    return res.status(status).json({ message: 'Expired or invalid token' });
+  }
+  if (!status) return res.status(500).json({ message });
   res.status(status).json({ message });
 };
 

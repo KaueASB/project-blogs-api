@@ -8,15 +8,15 @@ const FIELD_REQUIRED = 'Some required fields are missing';
 const { JWT_SECRET } = process.env;
 
 const loginService = {
-  async validateToken(unknown) {
+  async validateToken(tokenHeader) {
+    if (!tokenHeader) throwUnauthorizedError('Token not found');
+    
     const schema = Joi.string().required();
-    try {
-      const result = await schema.validateAsync(unknown);
-      const [, token] = result.split(' ');
-      return token;
-    } catch (error) {
-      throwUnauthorizedError();
-    }
+    const result = await schema.validateAsync(tokenHeader);
+    // if (!result) throwUnauthorizedError('Expired or invalid token');
+
+    const [token] = result.split(' ');
+    return token;
   },
 
   async validateLogin(body) {
@@ -54,6 +54,11 @@ const loginService = {
     const payload = { payload: user };
     const token = jwt.sign(payload, JWT_SECRET);
     return token;
+  },
+
+  async verifyToken(token) {
+    const { payload } = jwt.verify(token, JWT_SECRET);
+    return payload;
   },
 };
 

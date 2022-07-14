@@ -43,6 +43,13 @@ const usersService = {
     const token = jwt.sign(payload, JWT_SECRET);
     return token;
   },
+
+  async getAll() {
+    const users = await models.User.findAll({
+      attributes: { exclude: ['password'] },
+    });
+    return users;
+  },
 };
 
 module.exports = usersService;
