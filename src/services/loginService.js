@@ -13,7 +13,6 @@ const loginService = {
     
     const schema = Joi.string().required();
     const result = await schema.validateAsync(tokenHeader);
-    // if (!result) throwUnauthorizedError('Expired or invalid token');
 
     const [token] = result.split(' ');
     return token;

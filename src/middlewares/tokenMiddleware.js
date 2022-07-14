@@ -7,6 +7,7 @@ const tokenMiddleware = async (req, _res, next) => {
   const isValid = await loginService.validateToken(token);
   const user = await loginService.verifyToken(isValid);
   req.user = user;
+
   next();
 };
 
