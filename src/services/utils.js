@@ -16,8 +16,15 @@ const throwUserConflict = (message) => {
   throw err;
 };
 
+const throwNotExists = (message) => {
+  const err = new Error(message);
+  err.name = 'NotExists';
+  throw err;
+};
+
 module.exports = {
   throwUnauthorizedError,
   throwNotFoundError,
   throwUserConflict,
+  throwNotExists,
 };

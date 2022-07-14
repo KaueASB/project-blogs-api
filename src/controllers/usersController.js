@@ -8,8 +8,15 @@ const usersController = {
     const token = await usersService.makeToken(data);
     return res.status(201).json({ token });
   },
+
   async getAll(_req, res) {
     const users = await usersService.getAll();
+    return res.status(200).json(users);
+  },
+
+  async getById(req, res) {
+    const { id } = req.params;
+    const users = await usersService.getById(id);
     return res.status(200).json(users);
   },
 };

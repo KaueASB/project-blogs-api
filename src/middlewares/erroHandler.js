@@ -3,6 +3,7 @@ const errors = {
   ValidationError: 400,
   UnauthorizedError: 401,
   JsonWebTokenError: 401,
+  NotExists: 404,
   UserConflict: 409,
 };
 

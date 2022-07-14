@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 
-const { throwNotFoundError, throwUserConflict } = require('./utils');
+const { throwNotFoundError, throwUserConflict, throwNotExists } = require('./utils');
 const models = require('../database/models');
 
 const { JWT_SECRET } = process.env;
@@ -25,7 +25,6 @@ const usersService = {
       where: { email },
       raw: true,
     });
-    console.log('user: ', user);
     if (user) return throwUserConflict('User already registered');
   },
 
@@ -49,6 +48,17 @@ const usersService = {
       attributes: { exclude: ['password'] },
     });
     return users;
+  },
+
+  async getById(id) {
+    const user = await models.User.findOne({
+      where: { id },
+      attributes: { exclude: ['password'] },
+      raw: true,
+    });
+
+    if (!user) throwNotExists('User does not exist');
+    return user;
   },
 };
 
