@@ -28,18 +28,21 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    published: {
+    createdAt: {
       allowNull: false,
-      type: DataTypes .DATE
+      type: DataTypes.DATE,
+      field: 'published'
     },
-    updated: {
+    updatedAt: {
       allowNull: false,
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      field: 'updated'
     }
   },
-  {
-    tableName: 'BlogPosts',
-  });
+    {
+      tableName: 'BlogPosts',
+    }
+  );
 
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, {
