@@ -5,6 +5,7 @@ const tokenMiddleware = require('../middlewares/tokenMiddleware');
 const categoriesRoute = Router();
 
 categoriesRoute.route('/')
-  .post(tokenMiddleware, categoriesController.addCategory);
+  .post(tokenMiddleware, categoriesController.addCategory)
+  .get(tokenMiddleware, categoriesController.getAll);
 
 module.exports = categoriesRoute;
