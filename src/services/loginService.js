@@ -51,8 +51,7 @@ const loginService = {
   },
 
   async makeToken(user) {
-    const { id, name } = user;
-    const payload = { data: { id, name } };
+    const payload = { payload: user };
     const token = jwt.sign(payload, JWT_SECRET);
     return token;
   },

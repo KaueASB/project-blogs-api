@@ -2,7 +2,7 @@ const errors = {
   ValidationError: 400,
   UnauthorizedError: 401,
   NotFoundError: 400,
-  SUCESS0: 201,
+  UserConflict: 409,
 };
 
 /**
