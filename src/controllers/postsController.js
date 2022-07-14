@@ -9,8 +9,8 @@ const postsController = {
   },
 
   async getAll(_req, res) {
-    const categories = await postsService.getAll();
-    return res.status(200).json(categories);
+    const posts = await postsService.getAll();
+    return res.status(200).json(posts);
   },
 };
 

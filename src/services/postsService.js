@@ -2,7 +2,7 @@ const Joi = require('joi');
 const Sequelize = require('sequelize');
 const models = require('../database/models');
 
-const { throwNotFoundError } = require('./utils');
+const { throwNotExists, throwNotFoundError } = require('./utils');
 
 const config = require('../database/config/config');
 
@@ -40,11 +40,23 @@ const postsService = {
       await Promise.all(categoryIds.map((catId) => (
         models.PostCategory.create({ postId: post.id, categoryId: catId }, { transaction: t })
       )));
-
+      
       return post;
     });
 
     return result;
+  },
+
+  async getAll() {
+    const posts = await models.BlogPost.findAll({ raw: true });
+    return posts;
+  },
+
+  async getById(id) {
+    const post = await models.User.findOne({ where: { id }, raw: true });
+
+    if (!post) throwNotExists('Post does not exist');
+    return post;
   },
 };
 

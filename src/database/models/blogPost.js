@@ -28,18 +28,19 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    createdAt: {
+    published: {
       allowNull: false,
       type: DataTypes.DATE,
-      field: 'published'
+      // field: 'published'
     },
-    updatedAt: {
+    updated: {
       allowNull: false,
       type: DataTypes.DATE,
-      field: 'updated'
+      // field: 'updated'
     }
   },
     {
+      timestamps: false,
       tableName: 'BlogPosts',
     }
   );
