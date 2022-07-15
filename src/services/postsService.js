@@ -59,7 +59,13 @@ const postsService = {
   },
 
   async getById(id) {
-    const post = await models.User.findOne({ where: { id }, raw: true });
+    const post = await models.BlogPost.findOne({
+      where: { id },
+      include: [
+        { association: 'user', attributes: { exclude: ['password'] } },
+        { association: 'categories' },
+      ],
+    });
 
     if (!post) throwNotExists('Post does not exist');
     return post;
