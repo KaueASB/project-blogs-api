@@ -60,6 +60,12 @@ const usersService = {
     if (!user) throwNotExists('User does not exist');
     return user;
   },
+
+  async delete(id) {
+    await models.User.destroy({
+      where: { id },
+    });
+  },
 };
 
 module.exports = usersService;

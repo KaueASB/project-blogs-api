@@ -5,6 +5,9 @@ const usersController = require('../controllers/usersController');
 
 const usersRoute = Router();
 
+usersRoute.route('/me')
+  .delete(tokenMiddleware, usersController.delete);
+
 usersRoute.route('/:id')
   .get(tokenMiddleware, usersController.getById);
 

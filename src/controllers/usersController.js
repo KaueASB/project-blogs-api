@@ -19,6 +19,11 @@ const usersController = {
     const users = await usersService.getById(id);
     return res.status(200).json(users);
   },
+
+  async delete(req, res) {
+    await usersService.delete(req.user.id);
+    res.send(204);
+  },
 };
 
 module.exports = usersController;
