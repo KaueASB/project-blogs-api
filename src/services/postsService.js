@@ -6,7 +6,7 @@ const config = require('../database/config/config');
 const sequelize = new Sequelize(config.development);
 
 const models = require('../database/models');
-const { throwNotExists, throwNotFoundError } = require('./utils');
+const { throwNotExists, throwNotFoundError, throwUnauthorizedError } = require('./utils');
 
 const postsService = {
   async validateBody(body) {
@@ -18,6 +18,18 @@ const postsService = {
       });
       const result = await schema.validateAsync(body);
       return result;
+    } catch (error) {
+      throwNotFoundError('Some required fields are missing');
+    }
+  },
+
+  async validateBodyUpdate(body) {
+    try {
+      const schema = Joi.object({
+        title: Joi.string().required(),
+        content: Joi.string().required(),
+      });
+      await schema.validateAsync(body);
     } catch (error) {
       throwNotFoundError('Some required fields are missing');
     }
@@ -54,7 +66,6 @@ const postsService = {
         { association: 'categories' },
       ],
     });
-
     return posts;
   },
 
@@ -66,9 +77,21 @@ const postsService = {
         { association: 'categories' },
       ],
     });
-
     if (!post) throwNotExists('Post does not exist');
     return post;
+  },
+
+  async update({ idLogin, idPost, newContent }, { userId }) {
+    const { title, content } = newContent;
+    if (idLogin !== userId) throwUnauthorizedError('Unauthorized user');
+
+    await models.BlogPost.update({ title, content }, {
+      where: { id: idPost },
+    });
+
+    const updatedPost = this.getById(idPost);
+
+    return updatedPost;
   },
 };
 

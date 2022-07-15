@@ -18,6 +18,18 @@ const postsController = {
     const posts = await postsService.getById(id);
     return res.status(200).json(posts);
   },
+
+  async update(req, res) {
+    const data = {
+      idLogin: req.user.id,
+      idPost: req.params.id,
+      newContent: req.body,
+    };
+    await postsService.validateBodyUpdate(data.newContent);
+    const post = await postsService.getById(data.idPost);
+    const updatedPost = await postsService.update(data, post);
+    return res.status(200).json(updatedPost);
+  },
 };
 
 module.exports = postsController;
