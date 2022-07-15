@@ -93,6 +93,13 @@ const postsService = {
 
     return updatedPost;
   },
+
+  async delete({ idLogin, idPost }, { userId }) {
+    if (idLogin !== userId) throwUnauthorizedError('Unauthorized user');
+    await models.BlogPost.destroy({
+      where: { id: idPost },
+    });
+  },
 };
 
 module.exports = postsService;

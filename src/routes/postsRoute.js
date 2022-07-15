@@ -8,6 +8,7 @@ const postsRoute = Router();
 postsRoute.use(tokenMiddleware);
 
 postsRoute.route('/:id')
+  .delete(postsController.delete)
   .put(postsController.update)
   .get(postsController.getById);
 
