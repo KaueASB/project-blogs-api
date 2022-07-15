@@ -1,8 +1,6 @@
 const postsService = require('../services/postsService');
 
 const postsController = {
-  /** @type {import('express').RequestHandler} */
-
   async addPost(req, res) {
     const { id } = req.user;
     await postsService.validateBody(req.body);
@@ -36,9 +34,16 @@ const postsController = {
   async delete(req, res) {
     const data = { idLogin: req.user.id, idPost: req.params.id };
     const post = await postsService.getById(data.idPost);
-    console.log(post);
     await postsService.delete(data, post);
     return res.send(204);
+  },
+
+  /** @type {import('express').RequestHandler} */
+
+  async search(req, res) {
+    const { q } = req.query;
+    const result = await postsService.search(q);
+    res.status(200).json(result);
   },
 };
 

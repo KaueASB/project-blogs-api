@@ -7,6 +7,9 @@ const postsRoute = Router();
 
 postsRoute.use(tokenMiddleware);
 
+postsRoute.route('/search')
+  .get(postsController.search);
+
 postsRoute.route('/:id')
   .delete(postsController.delete)
   .put(postsController.update)

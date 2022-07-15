@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
 
 const config = require('../database/config/config');
 
@@ -99,6 +100,25 @@ const postsService = {
     await models.BlogPost.destroy({
       where: { id: idPost },
     });
+  },
+
+  // referencia do Op.or => https://github.com/sequelize/sequelize/issues/8448
+  async search(q) {
+    if (q.length < 1) return this.getAll();
+
+    const result = await models.BlogPost.findAll({
+      include: [
+        { association: 'user', attributes: { exclude: ['password'] } },
+        { association: 'categories' },
+      ],
+      where: {
+        [Op.or]: [
+          { title: { [Op.like]: `%${q}%` } },
+          { content: { [Op.like]: `%${q}%` } },
+        ],
+      },
+    });
+    return result;
   },
 };
 
