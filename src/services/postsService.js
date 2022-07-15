@@ -1,12 +1,12 @@
 const Joi = require('joi');
 const Sequelize = require('sequelize');
-const models = require('../database/models');
-
-const { throwNotExists, throwNotFoundError } = require('./utils');
 
 const config = require('../database/config/config');
 
 const sequelize = new Sequelize(config.development);
+
+const models = require('../database/models');
+const { throwNotExists, throwNotFoundError } = require('./utils');
 
 const postsService = {
   async validateBody(body) {
@@ -46,8 +46,15 @@ const postsService = {
     return result;
   },
 
+  // https://www.youtube.com/watch?v=Fbu7z5dXcRs&t=5307s => video de referencia para realziar as association
   async getAll() {
-    const posts = await models.BlogPost.findAll({ raw: true });
+    const posts = await models.BlogPost.findAll({
+      include: [
+        { association: 'user', attributes: { exclude: ['password'] } },
+        { association: 'categories' },
+      ],
+    });
+
     return posts;
   },
 
